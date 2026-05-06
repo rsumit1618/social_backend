@@ -1,0 +1,192 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Social API",
+    "version": "1.0.0",
+    "description": "API documentation for Social Media Backend"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    { "name": "Auth" },
+    { "name": "Posts" },
+    { "name": "Likes" },
+    { "name": "Comments" }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Register user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "User created" }
+        }
+      }
+    },
+
+    "/api/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Login successful" }
+        }
+      }
+    },
+
+    "/api/posts": {
+      "get": {
+        "tags": ["Posts"],
+        "summary": "Get all posts",
+        "responses": {
+          "200": { "description": "List of posts" }
+        }
+      },
+      "post": {
+        "tags": ["Posts"],
+        "summary": "Create a post",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": { "type": "string" },
+                  "image_url": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Post created" }
+        }
+      }
+    },
+
+    "/api/likes/{postId}": {
+      "post": {
+        "tags": ["Likes"],
+        "summary": "Like a post",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Post liked" }
+        }
+      },
+      "delete": {
+        "tags": ["Likes"],
+        "summary": "Unlike a post",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Post unliked" }
+        }
+      }
+    },
+
+    "/api/comments/{postId}": {
+      "get": {
+        "tags": ["Comments"],
+        "summary": "Get comments for a post",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "List of comments" }
+        }
+      },
+      "post": {
+        "tags": ["Comments"],
+        "summary": "Add comment to post",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Comment added" }
+        }
+      }
+    }
+  }
+}
