@@ -36,10 +36,14 @@ http://localhost:3000
 Render API:
 
 ```text
-https://your-render-service-url.onrender.com
+https://social-backend-qrfn.onrender.com
 ```
 
-Replace `your-render-service-url` with your actual Render service URL.
+Live Swagger Docs:
+
+```text
+https://social-backend-qrfn.onrender.com/api-docs
+```
 
 ## Features
 
@@ -126,7 +130,7 @@ http://localhost:3000/api-docs
 For the Render deployment:
 
 ```text
-https://your-render-service-url.onrender.com/api-docs
+https://social-backend-qrfn.onrender.com/api-docs
 ```
 
 Swagger lets viewers inspect all available APIs directly in the browser and test requests from the documentation page.
@@ -186,7 +190,7 @@ http://localhost:3000
 Use this base URL for deployed Render testing:
 
 ```text
-https://your-render-service-url.onrender.com
+https://social-backend-qrfn.onrender.com
 ```
 
 ### Thunder Client Setup
@@ -198,10 +202,24 @@ https://your-render-service-url.onrender.com
 5. For protected APIs, add the `Authorization` header.
 6. Send the request and check the JSON response.
 
+Recommended Thunder Client environment variable:
+
+| Variable | Value |
+| --- | --- |
+| `base_url` | `https://social-backend-qrfn.onrender.com` |
+
+After creating this environment variable, you can use `{{base_url}}` in every request below.
+
 ### 1. Check API Health
 
 ```http
 GET {{base_url}}/
+```
+
+Live URL:
+
+```text
+https://social-backend-qrfn.onrender.com/
 ```
 
 Expected response:
@@ -215,6 +233,12 @@ API Running
 ```http
 POST {{base_url}}/api/auth/register
 Content-Type: application/json
+```
+
+Live URL:
+
+```text
+https://social-backend-qrfn.onrender.com/api/auth/register
 ```
 
 Body:
@@ -232,6 +256,12 @@ Body:
 ```http
 POST {{base_url}}/api/auth/login
 Content-Type: application/json
+```
+
+Live URL:
+
+```text
+https://social-backend-qrfn.onrender.com/api/auth/login
 ```
 
 Body:
@@ -253,6 +283,12 @@ Content-Type: application/json
 Authorization: Bearer your_jwt_token
 ```
 
+Live URL:
+
+```text
+https://social-backend-qrfn.onrender.com/api/posts
+```
+
 Body:
 
 ```json
@@ -268,11 +304,23 @@ Body:
 GET {{base_url}}/api/posts
 ```
 
+Live URL:
+
+```text
+https://social-backend-qrfn.onrender.com/api/posts
+```
+
 ### 6. Like Post
 
 ```http
 POST {{base_url}}/api/likes/1
 Authorization: Bearer your_jwt_token
+```
+
+Live URL:
+
+```text
+https://social-backend-qrfn.onrender.com/api/likes/1
 ```
 
 Replace `1` with the real post id.
@@ -284,6 +332,12 @@ DELETE {{base_url}}/api/likes/1
 Authorization: Bearer your_jwt_token
 ```
 
+Live URL:
+
+```text
+https://social-backend-qrfn.onrender.com/api/likes/1
+```
+
 Replace `1` with the real post id.
 
 ### 8. Add Comment
@@ -292,6 +346,12 @@ Replace `1` with the real post id.
 POST {{base_url}}/api/comments/1
 Content-Type: application/json
 Authorization: Bearer your_jwt_token
+```
+
+Live URL:
+
+```text
+https://social-backend-qrfn.onrender.com/api/comments/1
 ```
 
 Body:
@@ -308,6 +368,12 @@ Replace `1` with the real post id.
 
 ```http
 GET {{base_url}}/api/comments/1
+```
+
+Live URL:
+
+```text
+https://social-backend-qrfn.onrender.com/api/comments/1
 ```
 
 Replace `1` with the real post id.
@@ -362,4 +428,3 @@ Render provides the `PORT` automatically, and the server reads it from `process.
 | `npm start` | Starts the production server |
 | `npm run dev` | Starts the development server with nodemon |
 | `npm test` | Currently no test suite is configured |
-
